@@ -10,23 +10,32 @@ public class Grid extends Pane {
     protected Canvas canvas;
     private int rows;
     private int columns;
-    private int cellSize;
+    private double cellSize;
+    private Color lineColor;
 
-    public Grid(int columns, int rows, int cellSize) {
+    public Grid(int columns) {
         this.columns = columns;
-        this.rows = rows;
-        this.cellSize = cellSize;
+        this.lineColor = Color.LIGHTGRAY.brighter();
 
         this.canvas = new Canvas();
         this.getChildren().add(this.canvas);
+        this.canvas.widthProperty().bind(this.widthProperty());
+        this.canvas.heightProperty().bind(this.heightProperty());
 
-        this.drawGrid();
+        this.cellSize = findCellSize();
+        this.rows = findNumberRows();
+        drawGrid();
 
-        this.canvas.widthProperty().bind(widthProperty());
-        this.canvas.heightProperty().bind(heightProperty());
-
-        this.widthProperty().addListener(evt -> drawGrid());
-        this.heightProperty().addListener(evt -> drawGrid());
+        this.widthProperty().addListener(evt -> {
+            this.cellSize = findCellSize();
+            this.rows = findNumberRows();
+            drawGrid();
+        });
+        this.heightProperty().addListener(evt -> {
+            this.cellSize = findCellSize();
+            this.rows = findNumberRows();
+            drawGrid();
+        });
     }
 
     private void drawGrid() {
@@ -43,15 +52,24 @@ public class Grid extends Pane {
                 double y = row * cellSize;
 
 //                DRAW HORIZONTAL LINES
-                gc.setLineWidth(1.0);
-                gc.setStroke(Color.BLACK);
-                gc.strokeLine(0, x + 0.5, canvasWidth, x + 0.5);
+                gc.setLineWidth(0.5);
+                gc.setStroke(lineColor);
+                gc.strokeLine(0.5, x + 0.5, canvasWidth + 0.5, x + 0.5);
 
 //                DRAW VERTICAL LINES
-                gc.setLineWidth(1.0);
-                gc.setStroke(Color.BLACK);
-                gc.strokeLine(y + 0.5, 0, y + 0.5, canvasHeight);
+                gc.setLineWidth(0.5);
+                gc.setStroke(lineColor);
+                gc.strokeLine(y + 0.5, 0.5, y + 0.5, canvasHeight + 0.5);
             }
         }
+    }
+
+    private double findCellSize(){
+        return canvas.getWidth()/columns;
+    }
+
+    private int findNumberRows(){
+
+        return (int)(cellSize * canvas.getHeight());
     }
 }

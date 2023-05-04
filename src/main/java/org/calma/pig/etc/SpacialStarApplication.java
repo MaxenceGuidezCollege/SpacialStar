@@ -12,7 +12,7 @@ public class SpacialStarApplication extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         AnchorPane panneauControl = new AnchorPane();
-        Grid grid = new Grid(200,10,8);
+        Grid grid = new Grid(100);
 
         SplitPane root = new SplitPane(panneauControl, grid);
         root.setOrientation(Orientation.VERTICAL);

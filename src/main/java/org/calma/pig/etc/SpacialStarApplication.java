@@ -1,7 +1,9 @@
 package org.calma.pig.etc;
 
 import javafx.application.Application;
+import javafx.geometry.Orientation;
 import javafx.scene.Scene;
+import javafx.scene.control.SplitPane;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -9,7 +11,11 @@ import javafx.stage.Stage;
 public class SpacialStarApplication extends Application {
     @Override
     public void start(Stage stage) throws Exception {
-        AnchorPane root = new AnchorPane();
+        AnchorPane panneauControl = new AnchorPane();
+        Grid grid = new Grid(200,10,8);
+
+        SplitPane root = new SplitPane(panneauControl, grid);
+        root.setOrientation(Orientation.VERTICAL);
 
         Scene scene = new Scene(root, 960, 540);
         stage.getIcons().add(new Image("org/calma/pig/etc/images/logo.png"));

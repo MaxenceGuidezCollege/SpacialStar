@@ -23,17 +23,18 @@ public class Grid extends Pane {
         this.canvas.heightProperty().bind(this.heightProperty());
 
         this.cellSize = findCellSize();
-        this.rows = findNumberRows();
+        this.rows = 200;
+//        this.rows = findNumberRows();
         drawGrid();
 
         this.widthProperty().addListener(evt -> {
             this.cellSize = findCellSize();
-            this.rows = findNumberRows();
+//            this.rows = findNumberRows();
             drawGrid();
         });
         this.heightProperty().addListener(evt -> {
             this.cellSize = findCellSize();
-            this.rows = findNumberRows();
+//            this.rows = findNumberRows();
             drawGrid();
         });
     }
@@ -69,7 +70,6 @@ public class Grid extends Pane {
     }
 
     private int findNumberRows(){
-
         return (int)(cellSize * canvas.getHeight());
     }
 }

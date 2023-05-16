@@ -7,10 +7,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontPosture;
-import javafx.scene.text.FontWeight;
+import org.calma.pig.etc.models.coordinates.Coordinates;
+import org.calma.pig.etc.repositories.coordinates.ICoordinatesRepository;
+import org.calma.pig.etc.repositories.coordinates.InMemoryCoordinatesRepository;
+
+import java.util.List;
 
 public class ControlPanelController {
     @FXML
@@ -62,12 +63,16 @@ public class ControlPanelController {
     private GridPane root;
     private int sizeSmallBtn;
     private int sizeBigBtn;
+    private ICoordinatesRepository coordinatesRepository;
 
     @FXML
     void initialize() throws Exception {
 
         this.sizeSmallBtn = 30;
         this.sizeBigBtn = 50;
+        this.coordinatesRepository = new InMemoryCoordinatesRepository();
+
+        fillTextField();
 
         makeButtons();
         placeButtons();
@@ -78,6 +83,25 @@ public class ControlPanelController {
         root.heightProperty().addListener(evt -> {
             placeButtons();
         });
+    }
+
+    public void fillTextField(){
+        List<Coordinates> allCoordinates = coordinatesRepository.findAll();
+
+        oneX.setText(allCoordinates.get(0).getX() + "");
+        oneY.setText(allCoordinates.get(0).getY() + "");
+
+        twoX.setText(allCoordinates.get(1).getX() + "");
+        twoY.setText(allCoordinates.get(1).getY() + "");
+
+        threeX.setText(allCoordinates.get(2).getX() + "");
+        threeY.setText(allCoordinates.get(2).getY() + "");
+
+        fourX.setText(allCoordinates.get(3).getX() + "");
+        fourY.setText(allCoordinates.get(3).getY() + "");
+
+        fiveX.setText(allCoordinates.get(4).getX() + "");
+        fiveY.setText(allCoordinates.get(4).getY() + "");
     }
 
     public void makeButtons(){

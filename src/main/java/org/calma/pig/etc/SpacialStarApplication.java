@@ -9,12 +9,13 @@ import javafx.scene.control.SplitPane;
 import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import org.calma.pig.etc.controllers.ControlPanelController;
 
 public class SpacialStarApplication extends Application {
     @Override
     public void start(Stage stage) throws Exception {
-        GridPane controlPanel = (GridPane) FXMLLoader
-                .load(getClass().getResource("fxml/controlPanel.fxml"));
+        ControlPanelController controller = new ControlPanelController();
+        GridPane controlPanel = (GridPane) FXMLLoader.load(getClass().getResource("fxml/controlPanel.fxml"));
 
         Grid grid = new Grid(150); //150 is the recommended value.
 

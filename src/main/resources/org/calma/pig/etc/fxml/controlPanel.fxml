@@ -10,7 +10,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<GridPane minHeight="200.0" styleClass="gridpane" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<GridPane fx:id="root" minHeight="200.0" styleClass="gridpane" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.calma.pig.etc.controllers.ControlPanelController">
   <columnConstraints>
     <ColumnConstraints />
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -33,6 +33,9 @@
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
+         <GridPane.margin>
+            <Insets />
+         </GridPane.margin>
       </Text>
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Translation" underline="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1">
          <font>
@@ -88,9 +91,12 @@
       </GridPane>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
          <children>
-            <Button fx:id="rotUp" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" />
-            <Button fx:id="rotDown" layoutY="50.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" />
+            <Button fx:id="rotRight" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" />
+            <Button fx:id="rotLeft" layoutY="50.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" />
          </children>
+         <GridPane.margin>
+            <Insets />
+         </GridPane.margin>
       </AnchorPane>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="2">
          <children>

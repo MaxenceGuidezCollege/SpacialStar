@@ -60,7 +60,7 @@ public class ControlPanelController {
     private Button homDown;
 
     @FXML
-    private GridPane root;
+    private VBox root;
     private int sizeSmallBtn;
     private int sizeBigBtn;
     private ICoordinatesRepository coordinatesRepository;
@@ -72,7 +72,7 @@ public class ControlPanelController {
         this.sizeBigBtn = 50;
         this.coordinatesRepository = new InMemoryCoordinatesRepository();
 
-        fillTextField();
+        initTextField();
 
         makeButtons();
         placeButtons();
@@ -85,7 +85,7 @@ public class ControlPanelController {
         });
     }
 
-    public void fillTextField(){
+    public void initTextField(){
         List<Coordinates> allCoordinates = coordinatesRepository.findAll();
 
         oneX.setText(allCoordinates.get(0).getX() + "");

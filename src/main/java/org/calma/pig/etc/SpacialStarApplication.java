@@ -21,7 +21,7 @@ public class SpacialStarApplication extends Application {
         grid.setId("grid");
 
         ControlPanelController controller = new ControlPanelController();
-        controller.setGridToControl(grid);
+        controller.setGridToControl(grid); // TODO : Voir ControlPanelController.java (ligne 298)
 
         SplitPane root = new SplitPane(controlPanel, grid);
         root.setId("root");

@@ -82,6 +82,8 @@ public class ControlPanelController {
         this.sizeSmallBtn = 30;
         this.sizeBigBtn = 50;
         this.coordinatesRepository = new InMemoryCoordinatesRepository();
+
+        //TODO : Voir ligne 298.
         this.grid = new SpacialStarGrid(150); //150 is the recommended value.
         grid.setId("grid");
 
@@ -295,8 +297,14 @@ public class ControlPanelController {
         }
 
         SpacialStar star = new SpacialStar(points);
-//        grid.setStar(star);
-//        grid.drawStar();
+
+        //TODO : La grille est null, je ne comprends pas pourquoi, pourtant je la set
+        // dans SpacialGridApplication.java (ligne 24) mais malgré cela, ça ne veux pas.
+        // NULL ? POURQUOI ?
+        // J'ai rajouter la ligne 87 et 88 pour qu'il n'y ai plus le bugs. Mais ça ne règle pas le problème
+        // CAR dans ce cas ci je créé une nouvelle grille différente de celle dans SpacialGridApplication.java (ligne 24).
+        grid.setStar(star);
+        grid.drawStar();
     }
 
     @FXML
@@ -307,7 +315,7 @@ public class ControlPanelController {
         fourY.setText((Double.parseDouble(fourY.getText()) - 1) + "");
         fiveY.setText((Double.parseDouble(fiveY.getText()) - 1) + "");
 
-//        drawNewStar();
+        drawNewStar();
     }
     @FXML
     void drawNewStarBottom(MouseEvent event) throws TooMuchItemsInCoordinatesList, NotEnoughItemsInCoordinatesList {
@@ -317,7 +325,7 @@ public class ControlPanelController {
         fourY.setText((Double.parseDouble(fourY.getText()) + 1) + "");
         fiveY.setText((Double.parseDouble(fiveY.getText()) + 1) + "");
 
-//        drawNewStar();
+        drawNewStar();
     }
     @FXML
     void drawNewStarLeft(MouseEvent event) throws TooMuchItemsInCoordinatesList, NotEnoughItemsInCoordinatesList {
@@ -327,7 +335,7 @@ public class ControlPanelController {
         fourX.setText((Double.parseDouble(fourX.getText()) - 1) + "");
         fiveX.setText((Double.parseDouble(fiveX.getText()) - 1) + "");
 
-//        drawNewStar();
+        drawNewStar();
     }
     @FXML
     void drawNewStarRight(MouseEvent event) throws TooMuchItemsInCoordinatesList, NotEnoughItemsInCoordinatesList {
@@ -337,7 +345,31 @@ public class ControlPanelController {
         fourX.setText((Double.parseDouble(fourX.getText()) + 1) + "");
         fiveX.setText((Double.parseDouble(fiveX.getText()) + 1) + "");
 
-//        drawNewStar();
+        drawNewStar();
     }
 
+    @FXML
+    void drawNewStarBigger(MouseEvent event) throws TooMuchItemsInCoordinatesList, NotEnoughItemsInCoordinatesList {
+        oneY.setText((Double.parseDouble(oneY.getText()) - 1) + "");
+        twoX.setText((Double.parseDouble(twoX.getText()) + 1) + "");
+        threeX.setText((Double.parseDouble(threeX.getText()) + 1) + "");
+        threeY.setText((Double.parseDouble(threeY.getText()) + 1) + "");
+        fourX.setText((Double.parseDouble(fourX.getText()) - 1) + "");
+        fourY.setText((Double.parseDouble(fourY.getText()) + 1) + "");
+        fiveX.setText((Double.parseDouble(fiveX.getText()) - 1) + "");
+
+        drawNewStar();
+    }
+    @FXML
+    void drawNewStarSmaller(MouseEvent event) throws TooMuchItemsInCoordinatesList, NotEnoughItemsInCoordinatesList {
+        oneY.setText((Double.parseDouble(oneY.getText()) + 1) + "");
+        twoX.setText((Double.parseDouble(twoX.getText()) - 1) + "");
+        threeX.setText((Double.parseDouble(threeX.getText()) - 1) + "");
+        threeY.setText((Double.parseDouble(threeY.getText()) - 1) + "");
+        fourX.setText((Double.parseDouble(fourX.getText()) + 1) + "");
+        fourY.setText((Double.parseDouble(fourY.getText()) - 1) + "");
+        fiveX.setText((Double.parseDouble(fiveX.getText()) + 1) + "");
+
+        drawNewStar();
+    }
 }

@@ -142,11 +142,11 @@
                 </AnchorPane>
                 <AnchorPane prefHeight="365.0" prefWidth="276.0" GridPane.columnIndex="4" GridPane.rowIndex="2">
                     <children>
-                        <Button fx:id="homUp" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0">
+                        <Button fx:id="homUp" mnemonicParsing="false" onMouseClicked="#drawNewStarBigger" prefHeight="50.0" prefWidth="50.0">
                             <tooltip>
                                 <Tooltip text="Grow up" />
                             </tooltip></Button>
-                        <Button fx:id="homDown" layoutY="50.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0">
+                        <Button fx:id="homDown" layoutY="50.0" mnemonicParsing="false" onMouseClicked="#drawNewStarSmaller" prefHeight="50.0" prefWidth="50.0">
                             <tooltip>
                                 <Tooltip text="Grow down" />
                             </tooltip></Button>
@@ -157,7 +157,7 @@
                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
             </padding>
         </GridPane>
-      <Text fx:id="error" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="Text">
+      <Text fx:id="error" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="Error">
          <font>
             <Font name="System Bold" size="16.0" />
          </font>

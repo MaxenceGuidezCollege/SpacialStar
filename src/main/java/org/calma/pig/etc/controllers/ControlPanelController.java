@@ -6,11 +6,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import org.calma.pig.etc.SpacialStarGrid;
 import org.calma.pig.etc.exceptions.NotEnoughItemsInCoordinatesList;
 import org.calma.pig.etc.exceptions.TooMuchItemsInCoordinatesList;
 import org.calma.pig.etc.models.Coordinates;
+import org.calma.pig.etc.models.SpacialStar;
 import org.calma.pig.etc.repositories.coordinates.ICoordinatesRepository;
 import org.calma.pig.etc.repositories.coordinates.InMemoryCoordinatesRepository;
 
@@ -182,15 +184,59 @@ public class ControlPanelController {
         return actualCoord;
     }
 
-    public void setGridToControl(SpacialStarGrid grid)
-            throws TooMuchItemsInCoordinatesList,
-            NotEnoughItemsInCoordinatesList {
-//
-//        SpacialStar star = new SpacialStar(this.getPoints());
-//
-//        grid.setStar(star);
-        grid.drawStar();
-
+    public void setGridToControl(SpacialStarGrid grid){
         this.grid = grid;
     }
+
+    public SpacialStarGrid getGrid() {
+        return grid;
+    }
+
+    public void drawNewStar() throws TooMuchItemsInCoordinatesList, NotEnoughItemsInCoordinatesList {
+        SpacialStar star = new SpacialStar(this.getPoints());
+        grid.setStar(star);
+        grid.drawStar();
+    }
+
+    @FXML
+    void drawNewStarTop(MouseEvent event) throws TooMuchItemsInCoordinatesList, NotEnoughItemsInCoordinatesList {
+        oneY.setText((Double.parseDouble(oneY.getText()) - 1) + "");
+        twoY.setText((Double.parseDouble(twoY.getText()) - 1) + "");
+        threeY.setText((Double.parseDouble(threeY.getText()) - 1) + "");
+        fourY.setText((Double.parseDouble(fourY.getText()) - 1) + "");
+        fiveY.setText((Double.parseDouble(fiveY.getText()) - 1) + "");
+
+        drawNewStar();
+    }
+    @FXML
+    void drawNewStarBottom(MouseEvent event) throws TooMuchItemsInCoordinatesList, NotEnoughItemsInCoordinatesList {
+        oneY.setText((Double.parseDouble(oneY.getText()) + 1) + "");
+        twoY.setText((Double.parseDouble(twoY.getText()) + 1) + "");
+        threeY.setText((Double.parseDouble(threeY.getText()) + 1) + "");
+        fourY.setText((Double.parseDouble(fourY.getText()) + 1) + "");
+        fiveY.setText((Double.parseDouble(fiveY.getText()) + 1) + "");
+
+        drawNewStar();
+    }
+    @FXML
+    void drawNewStarLeft(MouseEvent event) throws TooMuchItemsInCoordinatesList, NotEnoughItemsInCoordinatesList {
+        oneX.setText((Double.parseDouble(oneX.getText()) - 1) + "");
+        twoX.setText((Double.parseDouble(twoX.getText()) - 1) + "");
+        threeX.setText((Double.parseDouble(threeX.getText()) - 1) + "");
+        fourX.setText((Double.parseDouble(fourX.getText()) - 1) + "");
+        fiveX.setText((Double.parseDouble(fiveX.getText()) - 1) + "");
+
+        drawNewStar();
+    }
+    @FXML
+    void drawNewStarRight(MouseEvent event) throws TooMuchItemsInCoordinatesList, NotEnoughItemsInCoordinatesList {
+        oneX.setText((Double.parseDouble(oneX.getText()) + 1) + "");
+        twoX.setText((Double.parseDouble(twoX.getText()) + 1) + "");
+        threeX.setText((Double.parseDouble(threeX.getText()) + 1) + "");
+        fourX.setText((Double.parseDouble(fourX.getText()) + 1) + "");
+        fiveX.setText((Double.parseDouble(fiveX.getText()) + 1) + "");
+
+        drawNewStar();
+    }
+
 }

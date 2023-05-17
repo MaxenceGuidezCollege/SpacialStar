@@ -5,7 +5,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 
-public class Grid extends Pane {
+public abstract class Grid extends Pane {
 
     protected Canvas canvas;
     private int rows;

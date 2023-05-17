@@ -1,6 +1,6 @@
 package org.calma.pig.etc.repositories.coordinates;
 
-import org.calma.pig.etc.models.coordinates.Coordinates;
+import org.calma.pig.etc.models.Coordinates;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -17,11 +17,11 @@ public class InMemoryCoordinatesRepository implements ICoordinatesRepository {
     }
 
     public void loadFromMemory(){
-        data.add(new Coordinates(5,5));
-        data.add(new Coordinates(5,5));
-        data.add(new Coordinates(5,5));
-        data.add(new Coordinates(5,5));
-        data.add(new Coordinates(5,5));
+        data.add(new Coordinates(50,5));
+        data.add(new Coordinates(65,15));
+        data.add(new Coordinates(55,30));
+        data.add(new Coordinates(45,30));
+        data.add(new Coordinates(35,15));
     }
 
     @Override

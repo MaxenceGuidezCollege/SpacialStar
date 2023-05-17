@@ -10,7 +10,7 @@ public class Grid extends Pane {
     protected Canvas canvas;
     private int rows;
     private int columns;
-    private double cellSize;
+    protected double cellSize;
     private Color lineColor;
 
     public Grid(int columns) {

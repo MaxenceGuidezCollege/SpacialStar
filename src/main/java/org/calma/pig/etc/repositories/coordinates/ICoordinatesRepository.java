@@ -1,6 +1,6 @@
 package org.calma.pig.etc.repositories.coordinates;
 
-import org.calma.pig.etc.models.coordinates.Coordinates;
+import org.calma.pig.etc.models.Coordinates;
 
 import java.util.List;
 

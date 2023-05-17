@@ -7,10 +7,14 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
-import org.calma.pig.etc.models.coordinates.Coordinates;
+import org.calma.pig.etc.SpacialStarGrid;
+import org.calma.pig.etc.exceptions.NotEnoughItemsInCoordinatesList;
+import org.calma.pig.etc.exceptions.TooMuchItemsInCoordinatesList;
+import org.calma.pig.etc.models.Coordinates;
 import org.calma.pig.etc.repositories.coordinates.ICoordinatesRepository;
 import org.calma.pig.etc.repositories.coordinates.InMemoryCoordinatesRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ControlPanelController {
@@ -60,13 +64,14 @@ public class ControlPanelController {
     private Button homDown;
 
     @FXML
-    private VBox root;
+    private VBox topPart;
     private int sizeSmallBtn;
     private int sizeBigBtn;
     private ICoordinatesRepository coordinatesRepository;
+    private SpacialStarGrid grid;
 
     @FXML
-    void initialize() throws Exception {
+    void initialize() {
 
         this.sizeSmallBtn = 30;
         this.sizeBigBtn = 50;
@@ -77,31 +82,31 @@ public class ControlPanelController {
         makeButtons();
         placeButtons();
 
-        root.widthProperty().addListener(evt -> {
+        topPart.widthProperty().addListener(evt -> {
             placeButtons();
         });
-        root.heightProperty().addListener(evt -> {
+        topPart.heightProperty().addListener(evt -> {
             placeButtons();
         });
     }
 
     public void initTextField(){
-        List<Coordinates> allCoordinates = coordinatesRepository.findAll();
+        List<Coordinates> initCoordinates = coordinatesRepository.findAll();
 
-        oneX.setText(allCoordinates.get(0).getX() + "");
-        oneY.setText(allCoordinates.get(0).getY() + "");
+        oneX.setText(initCoordinates.get(0).getX() + "");
+        oneY.setText(initCoordinates.get(0).getY() + "");
 
-        twoX.setText(allCoordinates.get(1).getX() + "");
-        twoY.setText(allCoordinates.get(1).getY() + "");
+        twoX.setText(initCoordinates.get(1).getX() + "");
+        twoY.setText(initCoordinates.get(1).getY() + "");
 
-        threeX.setText(allCoordinates.get(2).getX() + "");
-        threeY.setText(allCoordinates.get(2).getY() + "");
+        threeX.setText(initCoordinates.get(2).getX() + "");
+        threeY.setText(initCoordinates.get(2).getY() + "");
 
-        fourX.setText(allCoordinates.get(3).getX() + "");
-        fourY.setText(allCoordinates.get(3).getY() + "");
+        fourX.setText(initCoordinates.get(3).getX() + "");
+        fourY.setText(initCoordinates.get(3).getY() + "");
 
-        fiveX.setText(allCoordinates.get(4).getX() + "");
-        fiveY.setText(allCoordinates.get(4).getY() + "");
+        fiveX.setText(initCoordinates.get(4).getX() + "");
+        fiveY.setText(initCoordinates.get(4).getY() + "");
     }
 
     public void makeButtons(){
@@ -137,7 +142,7 @@ public class ControlPanelController {
     }
 
     public void placeButtons(){
-        double colWidth = root.getWidth()/4;
+        double colWidth = topPart.getWidth()/4;
 
         rotRight.setLayoutY(10);
         rotRight.setLayoutX(colWidth/2 - sizeBigBtn/2.0);
@@ -157,5 +162,35 @@ public class ControlPanelController {
         homUp.setLayoutX(colWidth/2 - sizeBigBtn/2.0);
         homDown.setLayoutY(sizeBigBtn + 20);
         homDown.setLayoutX(colWidth/2 - sizeBigBtn/2.0);
+    }
+
+    public List<Coordinates> getPoints(){
+        List<Coordinates> actualCoord = new ArrayList<>();
+
+        Coordinates point1 = new Coordinates(Double.parseDouble(oneX.getText()), Double.parseDouble(oneY.getText()));
+        Coordinates point2 = new Coordinates(Double.parseDouble(twoX.getText()), Double.parseDouble(twoY.getText()));
+        Coordinates point3 = new Coordinates(Double.parseDouble(threeX.getText()), Double.parseDouble(threeY.getText()));
+        Coordinates point4 = new Coordinates(Double.parseDouble(fourX.getText()), Double.parseDouble(fourY.getText()));
+        Coordinates point5 = new Coordinates(Double.parseDouble(fiveX.getText()), Double.parseDouble(fiveY.getText()));
+
+        actualCoord.add(point1);
+        actualCoord.add(point2);
+        actualCoord.add(point3);
+        actualCoord.add(point4);
+        actualCoord.add(point5);
+
+        return actualCoord;
+    }
+
+    public void setGridToControl(SpacialStarGrid grid)
+            throws TooMuchItemsInCoordinatesList,
+            NotEnoughItemsInCoordinatesList {
+//
+//        SpacialStar star = new SpacialStar(this.getPoints());
+//
+//        grid.setStar(star);
+        grid.drawStar();
+
+        this.grid = grid;
     }
 }

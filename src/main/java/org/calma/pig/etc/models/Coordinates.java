@@ -1,9 +1,6 @@
-package org.calma.pig.etc.models.coordinates;
+package org.calma.pig.etc.models;
 
 import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
-import org.calma.pig.etc.models.AbstractObject;
 
 import java.util.Objects;
 

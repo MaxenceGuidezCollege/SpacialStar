@@ -12,14 +12,19 @@ import javafx.stage.Stage;
 import org.calma.pig.etc.controllers.ControlPanelController;
 
 public class SpacialStarApplication extends Application {
+
     @Override
     public void start(Stage stage) throws Exception {
-        ControlPanelController controller = new ControlPanelController();
         VBox controlPanel = (VBox) FXMLLoader.load(getClass().getResource("fxml/controlPanel.fxml"));
 
-        Grid grid = new Grid(150); //150 is the recommended value.
+        SpacialStarGrid grid = new SpacialStarGrid(150); //150 is the recommended value.
+        grid.setId("grid");
+
+        ControlPanelController controller = new ControlPanelController();
+        controller.setGridToControl(grid);
 
         SplitPane root = new SplitPane(controlPanel, grid);
+        root.setId("root");
         root.setOrientation(Orientation.VERTICAL);
         root.setPadding(new Insets(0));
 

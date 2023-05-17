@@ -8,6 +8,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
+import javafx.scene.text.Text;
 import org.calma.pig.etc.SpacialStarGrid;
 import org.calma.pig.etc.exceptions.NotEnoughItemsInCoordinatesList;
 import org.calma.pig.etc.exceptions.TooMuchItemsInCoordinatesList;
@@ -50,6 +51,9 @@ public class ControlPanelController {
     @FXML
     private Button rotLeft;
 
+    @FXML
+    private Text error;
+
 
     @FXML
     private Button xDown;
@@ -73,13 +77,18 @@ public class ControlPanelController {
     private SpacialStarGrid grid;
 
     @FXML
-    void initialize() {
+    void initialize() throws TooMuchItemsInCoordinatesList, NotEnoughItemsInCoordinatesList {
 
         this.sizeSmallBtn = 30;
         this.sizeBigBtn = 50;
         this.coordinatesRepository = new InMemoryCoordinatesRepository();
+        this.grid = new SpacialStarGrid(150); //150 is the recommended value.
+        grid.setId("grid");
 
         initTextField();
+
+        this.error.setText("");
+        this.error.setVisible(false);
 
         makeButtons();
         placeButtons();
@@ -169,11 +178,26 @@ public class ControlPanelController {
     public List<Coordinates> getPoints(){
         List<Coordinates> actualCoord = new ArrayList<>();
 
-        Coordinates point1 = new Coordinates(Double.parseDouble(oneX.getText()), Double.parseDouble(oneY.getText()));
-        Coordinates point2 = new Coordinates(Double.parseDouble(twoX.getText()), Double.parseDouble(twoY.getText()));
-        Coordinates point3 = new Coordinates(Double.parseDouble(threeX.getText()), Double.parseDouble(threeY.getText()));
-        Coordinates point4 = new Coordinates(Double.parseDouble(fourX.getText()), Double.parseDouble(fourY.getText()));
-        Coordinates point5 = new Coordinates(Double.parseDouble(fiveX.getText()), Double.parseDouble(fiveY.getText()));
+        String x1 = oneX.getText();
+        String y1 = oneY.getText();
+
+        String x2 = twoX.getText();
+        String y2 = twoY.getText();
+
+        String x3 = threeX.getText();
+        String y3 = threeY.getText();
+
+        String x4 = fourX.getText();
+        String y4 = fourY.getText();
+
+        String x5 = fiveX.getText();
+        String y5 = fiveY.getText();
+
+        Coordinates point1 = new Coordinates(Double.parseDouble(x1), Double.parseDouble(y1));
+        Coordinates point2 = new Coordinates(Double.parseDouble(x2), Double.parseDouble(y2));
+        Coordinates point3 = new Coordinates(Double.parseDouble(x3), Double.parseDouble(y3));
+        Coordinates point4 = new Coordinates(Double.parseDouble(x4), Double.parseDouble(y4));
+        Coordinates point5 = new Coordinates(Double.parseDouble(x5), Double.parseDouble(y5));
 
         actualCoord.add(point1);
         actualCoord.add(point2);
@@ -182,6 +206,78 @@ public class ControlPanelController {
         actualCoord.add(point5);
 
         return actualCoord;
+    }
+
+    public boolean verifierInputs(){
+        String x1 = oneX.getText();
+        String y1 = oneY.getText();
+
+        String x2 = twoX.getText();
+        String y2 = twoY.getText();
+
+        String x3 = threeX.getText();
+        String y3 = threeY.getText();
+
+        String x4 = fourX.getText();
+        String y4 = fourY.getText();
+
+        String x5 = fiveX.getText();
+        String y5 = fiveY.getText();
+
+        boolean valideVide = true;
+        boolean valideNumeric = true;
+
+        if(!isNumeric(x1) || !isNumeric(y1)
+                || !isNumeric(x2) || !isNumeric(y2)
+                || !isNumeric(x3) || !isNumeric(y3)
+                || !isNumeric(x4) || !isNumeric(y4)
+                || !isNumeric(x5) || !isNumeric(y5)){
+            valideNumeric = false;
+        }
+        else{
+            valideNumeric = true;
+        }
+
+        if(x1 == null || x1.equals("")
+                || y1 == null || y1.equals("")
+                || x2 == null || x2.equals("")
+                || y2 == null || y2.equals("")
+                || x3 == null || x3.equals("")
+                || y3 == null || y3.equals("")
+                || x4 == null || x4.equals("")
+                || y4 == null || y4.equals("")
+                || x5 == null || x5.equals("")
+                || y5 == null || y5.equals("")){
+            valideVide = false;
+        }
+        else{
+            valideVide = true;
+        }
+
+        if(!valideVide){
+            this.error.setText("Values cannot be null or empty !");
+            this.error.setVisible(true);
+            return false;
+        }
+        else if (!valideNumeric) {
+            this.error.setText("Values must be numeric (double) !");
+            this.error.setVisible(true);
+            return false;
+        }
+        else{
+            this.error.setText("");
+            this.error.setVisible(false);
+            return true;
+        }
+    }
+
+    public boolean isNumeric(String str) {
+        try {
+            Double.parseDouble(str);
+            return true;
+        } catch(NumberFormatException e){
+            return false;
+        }
     }
 
     public void setGridToControl(SpacialStarGrid grid){
@@ -193,9 +289,14 @@ public class ControlPanelController {
     }
 
     public void drawNewStar() throws TooMuchItemsInCoordinatesList, NotEnoughItemsInCoordinatesList {
-        SpacialStar star = new SpacialStar(this.getPoints());
-        grid.setStar(star);
-        grid.drawStar();
+        List<Coordinates> points = new ArrayList<>();
+        if(this.verifierInputs()){
+            points = this.getPoints();
+        }
+
+        SpacialStar star = new SpacialStar(points);
+//        grid.setStar(star);
+//        grid.drawStar();
     }
 
     @FXML
@@ -206,7 +307,7 @@ public class ControlPanelController {
         fourY.setText((Double.parseDouble(fourY.getText()) - 1) + "");
         fiveY.setText((Double.parseDouble(fiveY.getText()) - 1) + "");
 
-        drawNewStar();
+//        drawNewStar();
     }
     @FXML
     void drawNewStarBottom(MouseEvent event) throws TooMuchItemsInCoordinatesList, NotEnoughItemsInCoordinatesList {
@@ -216,7 +317,7 @@ public class ControlPanelController {
         fourY.setText((Double.parseDouble(fourY.getText()) + 1) + "");
         fiveY.setText((Double.parseDouble(fiveY.getText()) + 1) + "");
 
-        drawNewStar();
+//        drawNewStar();
     }
     @FXML
     void drawNewStarLeft(MouseEvent event) throws TooMuchItemsInCoordinatesList, NotEnoughItemsInCoordinatesList {
@@ -226,7 +327,7 @@ public class ControlPanelController {
         fourX.setText((Double.parseDouble(fourX.getText()) - 1) + "");
         fiveX.setText((Double.parseDouble(fiveX.getText()) - 1) + "");
 
-        drawNewStar();
+//        drawNewStar();
     }
     @FXML
     void drawNewStarRight(MouseEvent event) throws TooMuchItemsInCoordinatesList, NotEnoughItemsInCoordinatesList {
@@ -236,7 +337,7 @@ public class ControlPanelController {
         fourX.setText((Double.parseDouble(fourX.getText()) + 1) + "");
         fiveX.setText((Double.parseDouble(fiveX.getText()) + 1) + "");
 
-        drawNewStar();
+//        drawNewStar();
     }
 
 }
